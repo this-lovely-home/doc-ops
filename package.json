@@ -1,0 +1,14 @@
+{
+  "name": "tlh-doc-ops",
+  "version": "0.0.1",
+  "description": "to create the world and be its destroyer",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Morgan Craft",
+  "license": "SEE LICENSE IN LICENSE",
+  "dependencies": {
+    "pdfkit": "^0.11.0"
+  }
+}
