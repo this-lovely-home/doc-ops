@@ -5,16 +5,19 @@ const fs = require('fs')
 const doc = new PDFDocument()
 
 const FILE_NAME = 'output.pdf'
+const QUOTE_SET = require('./fixtures/initial-quotes')
 
+console.log(QUOTE_SET)
 // Pipe its output somewhere, like to a file or HTTP response
 // See below for browser usage
 doc.pipe(fs.createWriteStream(FILE_NAME))
 
 // Embed a font, set the font size, and render some text
+// Set Defaulkt Title page
 doc
   // .font('fonts/Rockwell.ttf')
   .fontSize(25)
-  .text('Some text with an embedded font!', 100, 100)
+  .text('TitlePage v0.1.0', 100, 100)
 
 // -- Example for an image
 // Add an image, constrain it to a given size, and center it vertically and horizontally
@@ -25,36 +28,65 @@ doc.image('path/to/image.png', {
   valign: 'center'
 }) */
 
-// Add another page
-doc
-  .addPage()
-  .fontSize(25)
-  .text('Here is some vector graphics...', 100, 100)
+function renderSimplePage (quote = 'not provided', person = '') {
+  // heightOfString
+  // Add another page
+  doc
+    .addPage()
 
-// Draw a triangle
-doc
-  .save()
-  .moveTo(100, 150)
-  .lineTo(100, 250)
-  .lineTo(200, 250)
-  .fill('#FF3300')
+  doc
+    .font('assets/PetitFormalScript-Regular.ttf')
+    .fontSize(20)
+    .text(quote, 100, 100)
+  doc.font('Helvetica')
+    .moveDown(0.8)
+    .fontSize(14)
+    .fillColor('#444')
+    .text('- ' + person)
+  // doc.circle(280, 200, 50).fill('#6600FF')
+  // Draw somthing somehere
+  doc
+    .save()
+  // x0, y50//
+    .moveTo(50, 200)
+  // draw drashed lined to x:400, y0
+    .lineTo(600, 200)
+    .stroke('#333')
 
-// Apply some transforms and render an SVG path with the 'even-odd' fill rule
-doc
-  .scale(0.6)
-  .translate(470, -380)
-  .path('M 250,75 L 323,301 131,161 369,161 177,301 z')
-  .fill('red', 'even-odd')
-  .restore()
+  // Draw somthing somehere
+  doc
+    .save()
+  // x0, y50//
+    .moveTo(50, 250)
+  // draw drashed lined to x:400, y0
+    .lineTo(600, 250).dash(5, { space: 10 })
+    .stroke('#4183C4')
+
+  // Draw somthing somehere
+  doc
+    .save()
+  // x0, y50//
+    .moveTo(50, 300)
+  // draw drashed lined to x:400, y0
+    .lineTo(600, 300).undash()
+    .stroke('#333')
+}
+
+// renderSimplePage(QUOTE_SET[0].quote)
+
+QUOTE_SET.forEach(element => {
+  renderSimplePage(element.quote, element.person)
+})
 
 // Add some text with annotations
+/*
 doc
   .addPage()
   .fillColor('blue')
   .text('Here is a link!', 100, 100)
   .underline(100, 100, 160, 27, { color: '#0000FF' })
   .link(100, 100, 160, 27, 'http://google.com/')
-
+*/
 // Finalize PDF file
 try {
   doc.end()
