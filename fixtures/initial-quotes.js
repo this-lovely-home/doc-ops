@@ -27,6 +27,10 @@ const QUOTE_SET = [
   {
     quote: 'We don’t mind spending 15 years on education, why not the same to become a better human being?',
     person: 'Matthieu Ricard'
+  },
+  {
+    quote: 'No one knows everything. No one knows nothing. Everyone has a piece of the puzzle.',
+    person: 'Lama Surya Das'
   }
 
 ]

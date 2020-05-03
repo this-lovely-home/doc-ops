@@ -1,6 +1,6 @@
 {
   "name": "tlh-doc-ops",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "to create the world and be its destroyer",
   "main": "index.js",
   "scripts": {
